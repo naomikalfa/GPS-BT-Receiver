@@ -6,7 +6,7 @@ from pathlib import Path
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
 CELERY_ACCEPT_CONTENT = ['json']
 #  RESULT_BACKEND = 'db+scheme://user:password@host:port/dbname'
-CELERY_RESULT_BACKEND = 'db+postgresql://postgres:1234@localhost:5432/distributed'
+CELERY_RESULT_BACKEND = 'db+postgresql://postgres:******@localhost:5432/distributed'
 CELERY_TASK_SERIALIZER = 'json'
 
 """
