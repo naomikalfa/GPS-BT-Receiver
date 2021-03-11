@@ -6,7 +6,7 @@ from pathlib import Path
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost'
 CELERY_ACCEPT_CONTENT = ['json']
 #  RESULT_BACKEND = 'db+scheme://user:password@host:port/dbname'
-CELERY_RESULT_BACKEND = 'db+postgresql://postgres:1234@localhost:5432/distributed_crawling'
+CELERY_RESULT_BACKEND = 'db+postgresql://postgres:1234@localhost:5432/distributed'
 CELERY_TASK_SERIALIZER = 'json'
 
 """
@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f8hx@*=b_c&54ty&g6o#6h)7fkmsza31ad@!(15^x^sa_a8--^'
+SECRET_KEY = 'f8hx@*=b_c&54ty&mm6o#6h)7fkmsz
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'distributed_crawling',
         'USER': 'postgres',
-        'PASSWORD': '1234',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
