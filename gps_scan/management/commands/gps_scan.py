@@ -1,25 +1,23 @@
-from django.core.management.base import BaseCommand
-import gpsd
 from datetime import *
-from time import time, sleep
-from gps_scan.models import GpsScan
-import random
+from django.core.management.base import BaseCommand
 from gps_scan.tasks import deep_scan_gps_location
+from gps_scan.models import GpsScan
+import gpsd
+import random
+from time import time, sleep
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-        gpsd.connect()  # host="127.0.0.1", port=2947
+        gpsd.connect() 
         packet = gpsd.get_current()
 
         last_lat = None
         last_lon = None
 
         while True:
-
-            #  to filter on the date added that is older than 10 seconds old
-            #  GpsScan.objects.filter(created_at__date__gte=datetime.now()-timedelta(seconds=10))
+            
             current_position = packet.position()  # position = lat x lon
             print(current_position)
             if last_lat is not None and last_lon is not None:
@@ -48,31 +46,3 @@ class Command(BaseCommand):
                             last_lon = current_position[1]
 
     deep_scan_gps_location.delay()
-
-
-"""''
-#  check timestamp from field created_at datetimeField
-#  if timestamp is older than 600 seconds, run amd write a scan
-
-checking_ten_minutes = datetime.now() - timedelta(seconds=600)
-ten_min = str(checking_ten_minutes)
-parsed_ten = ten_min[11:26]
-
-GpsScan.created_at.filter(date__range=[datetime.now(), checking_ten_minutes])
-
-
-
-
-'''
-
-
-#sleep(600)
-
-# p = GpsScan.objects.values_list('created_at').annotate()
-# p = GpsScan.objects.values_list('created_at').order_by('-created_at')
-# p[0] == most recent entry
-
-#now = datetime.now()
-    #current_time = now.strftime("%H:%M:%S")
-    #print("Current Time =", current_time)
-"""
